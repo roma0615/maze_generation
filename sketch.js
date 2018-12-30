@@ -76,14 +76,12 @@ function generateMaze(i, walls, cells, mazeWidth, mazeHeight) {
 		var id1 = cells[wall.r][wall.c].ID;
 		var id2 = cells[wall.r + dr][wall.c + dc].ID;
 		// their ID's are different, so remove this wall and combine ids
-		var floodId = Math.min(id1, id2);
-		var toChange = Math.max(id1, id2);
 
 		print("combining " + id1 + " and " + id2);
 		for (var r = 0; r < mazeHeight; r++) {
 			for (var c = 0; c < mazeWidth; c++) {
-				if (cells[r][c].ID == toChange) {
-					cells[r][c].ID = floodId;
+				if (cells[r][c].ID == id2) {
+					cells[r][c].ID = id1;
 				}
 			}
 		}
