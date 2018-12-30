@@ -120,11 +120,17 @@ function draw() {
 	}
 	print(res);
 
-	background(26);
+	background("#1A1A1A");
 	stroke(255);
 	strokeWeight(3);
+
 	var cw = width/w;
 	var ch = height/h;
+
+	line(1, 1, 1, height-2);
+	line(width-2, 1, width-2, height-2);
+	line(1 + cw, 1, width-2, 1);
+	line(1, height-2, width-2-cw, height-2);
 	for (var i = 0; i < res.walls.length; i++) {
 		var wall = res.walls[i];
 		if (wall.horiz) {
