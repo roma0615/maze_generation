@@ -25,7 +25,7 @@ function createWalls(mazeWidth, mazeHeight) {
 	for (var r = 0; r < mazeHeight; r++) {
 		cells[r] = [];
 		for (var c = 0; c < mazeWidth; c++) {
-			cells[r].push({ID:r*mazeWidth + c});
+			cells[r].push(r*mazeWidth + c);
 		}
 	}
 
@@ -36,23 +36,14 @@ function createWalls(mazeWidth, mazeHeight) {
 	for (var i = 0; i < mazeWidth*mazeHeight; i++) {
 		// verticals
 		if (i % mazeWidth != 0) {
-			// this isn't a left border
 			walls.push({r: Math.floor(i/mazeWidth), c: i%mazeWidth, horiz:false});
 		}
 		// horizontals
 		if (i >= mazeWidth) {
-			// this isn't a top border
 			walls.push({r: Math.floor(i/mazeWidth), c: i%mazeWidth, horiz:true});
 		}
 	}
-
 	walls = shuffle(walls);
-	
-	print('Walls length: ' + walls.length);
-
-	// generateMaze(walls, cells, mazeWidth, mazeHeight);
-	
-	// now we're done
 	// return the walls (to draw)
 	return {i: 0, walls: walls, cells: cells};
 }
@@ -61,38 +52,20 @@ function generateMaze(i, walls, cells, mazeWidth, mazeHeight) {
 	if (i == -1) return {i: i, walls: walls, cells: cells};
 	var wall = walls[i];
 	print("Chose " + (wall.horiz ? "horizontal" : "vertical") + " wall: R" + wall.r + " C" + wall.c);
-	var dc = -1; // cell to left of wall
-	var dr = 0;
-	if (wall.horiz) {
-		dc = 0;
-		dr = -1; // cell above wall
-	}
-
-	if (cells[wall.r][wall.c].ID != cells[wall.r + dr][wall.c + dc].ID) {
-		// remove this wall, decrement i
-		walls.splice(i, 1);
-		i--;
-
-		var id1 = cells[wall.r][wall.c].ID;
-		var id2 = cells[wall.r + dr][wall.c + dc].ID;
+	var dc = wall.horiz ? 0 : -1;
+	var dr = wall.horiz ? -1 : 0;
+	if (cells[wall.r][wall.c] !== cells[wall.r + dr][wall.c + dc]) {
+		// remove this wall and decrement i
+		walls.splice(i--, 1);
+		var id1 = cells[wall.r][wall.c];
+		var id2 = cells[wall.r + dr][wall.c + dc];
 		// their ID's are different, so remove this wall and combine ids
-
-		print("combining " + id1 + " and " + id2);
-		for (var r = 0; r < mazeHeight; r++) {
-			for (var c = 0; c < mazeWidth; c++) {
-				if (cells[r][c].ID == id2) {
-					cells[r][c].ID = id1;
-				}
-			}
-		}
+		for (var r = 0; r < mazeHeight; r++)
+			for (var c = 0; c < mazeWidth; c++)
+				if (cells[r][c] == id2) cells[r][c] = id1;
 	}
 
-	i++;
-
-	// this means we're done
-	if (i >= walls.length) {
-		i = -1;
-	}
+	if (++i >= walls.length) i = -1;
 	return {i: i, walls: walls, cells: cells};
 }
 
@@ -101,16 +74,14 @@ var w;
 var h;
 var speed = 3;
 
-
 function setup() {
-	canvas = createCanvas(windowWidth * 0.65, windowHeight * 0.75);
+	canvas = createCanvas(windowWidth * 0.65,
+						 windowHeight * 0.75);
 	canvas.parent("canvas_container");
 
 	w = 30;
 	h = 20;
 	res = createWalls(w, h);
-
-	// frameRate(0.2);
 }
 
 function draw() { 
@@ -147,9 +118,8 @@ function draw() {
 	strokeWeight(1);
 	for (var r = 0; r < h; r++) {
 		for (var c = 0; c < w; c++) {
-			text(res.cells[r][c].ID, c*cw + 7, r*ch+ch - 10);
+			text(res.cells[r][c], c*cw + 7, r*ch+ch - 10);
 		}
 	}
 	*/
-
 }
