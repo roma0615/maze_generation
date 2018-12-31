@@ -81,7 +81,7 @@ var divider;
 
 function getAppropriateWidth() {
 	if (mediaSizeLessThan(620)) {
-		return 390;
+		return 330;
 	} else if (mediaSizeLessThan(1000)) {
 		return 570;
 	} else {
