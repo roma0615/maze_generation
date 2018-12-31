@@ -142,6 +142,11 @@ function draw() {
 	background("#1A1A1A");
 	stroke(255);
 	strokeWeight(3);
+	if (mediaSizeLessThan(620) && w/3 > 34) {
+		strokeWeight(1);
+	} else if (mediaSizeLessThan(620) && w/3 > 25) {
+		strokeWeight(2);
+	}
 
 	var cw = width/w;
 	var ch = height/h;
