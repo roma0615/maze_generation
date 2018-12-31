@@ -84,10 +84,13 @@ function setup() {
 	res = createWalls(w, h);
 }
 
-function draw() { 
+function draw() {
 	background("#1A1A1A");
-	for (var i = 0; i < speed; i++) {
-		res = generateMaze(res.i, res.walls, res.cells, w, h);
+
+	if (res.i > -1) {
+		for (var i = 0; i < speed; i++) {
+			res = generateMaze(res.i, res.walls, res.cells, w, h);
+		}
 	}
 	print(res);
 
