@@ -70,23 +70,35 @@ function generateMaze(i, walls, cells, mazeWidth, mazeHeight) {
 }
 
 var res;
-var w;
-var h;
+var w = 30;
+var h = 20;
 var speed = 3;
 
 function setup() {
 	canvas = createCanvas(windowWidth * 0.65,
 						 windowHeight * 0.75);
 	canvas.parent("canvas_container");
-
-	w = 30;
-	h = 20;
 	res = createWalls(w, h);
+
+	document.querySelector("#maze_size_slider").value = w/3;
+
+	document.querySelector("#maze_size_txt").innerText = w/3;
 }
 
 function draw() {
 	background("#1A1A1A");
 
+	speed = document.querySelector("#speed_slider").value;
+	document.querySelector("#speed_txt").innerText = speed;
+
+	document.querySelector("#maze_size_txt").innerText = w/3;
+
+	if (document.querySelector("#maze_size_slider").value*3 != w) {
+		w = document.querySelector("#maze_size_slider").value * 3;
+		h = document.querySelector("#maze_size_slider").value * 2;
+		setup();
+	}
+	
 	if (res.i > -1) {
 		for (var i = 0; i < speed; i++) {
 			res = generateMaze(res.i, res.walls, res.cells, w, h);
