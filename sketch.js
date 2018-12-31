@@ -69,19 +69,52 @@ function generateMaze(i, walls, cells, mazeWidth, mazeHeight) {
 	return {i: i, walls: walls, cells: cells};
 }
 
+function mediaSizeLessThan(thresh) {
+	return window.matchMedia("(max-width: " + thresh + "px)").matches;
+}
+
 var res;
 var w = 30;
-var h = 20;
+var h;
 var speed = 3;
+var divider;
+
+function getAppropriateWidth() {
+	if (mediaSizeLessThan(620)) {
+		return 390;
+	} else if (mediaSizeLessThan(1000)) {
+		return 570;
+	} else {
+		return 900;
+	}
+}
+
+function getAppropriateHeight() {
+	if (mediaSizeLessThan(620)) {
+		return getAppropriateWidth() / 0.75;
+	} else if (mediaSizeLessThan(1000)) {
+		return getAppropriateWidth() / 1;
+	} else {
+		return getAppropriateWidth() / 1.5;
+	}
+}
 
 function setup() {
-	canvas = createCanvas(windowWidth * 0.65,
-						 windowHeight * 0.75);
+	canvas = createCanvas(getAppropriateWidth(),
+						 getAppropriateHeight());
 	canvas.parent("canvas_container");
+
+	var divider = 1.5;
+	if (mediaSizeLessThan(620)) {
+		divider = 0.75;
+	} else if (mediaSizeLessThan(1000)) {
+		divider = 1;
+	}
+
+	h = w / divider;
 	res = createWalls(w, h);
 
 	document.querySelector("#maze_size_slider").value = w/3;
-
 	document.querySelector("#maze_size_txt").innerText = w/3;
 }
 
@@ -95,7 +128,7 @@ function draw() {
 
 	if (document.querySelector("#maze_size_slider").value*3 != w) {
 		w = document.querySelector("#maze_size_slider").value * 3;
-		h = document.querySelector("#maze_size_slider").value * 2;
+		h = document.querySelector("#maze_size_slider").value * (3/divider);
 		setup();
 	}
 	
@@ -138,3 +171,5 @@ function draw() {
 	}
 	*/
 }
+
+window.onresize = setup;
