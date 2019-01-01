@@ -144,17 +144,17 @@ function draw() {
 	strokeWeight(3);
 	if (mediaSizeLessThan(620) && w/3 > 34) {
 		strokeWeight(1);
-	} else if (mediaSizeLessThan(620) && w/3 > 25) {
+	} else if (w/3 > 25) {
 		strokeWeight(2);
 	}
 
 	var cw = width/w;
 	var ch = height/h;
 
-	line(1, 1, 1, height-2);
-	line(width-2, 1, width-2, height-2);
-	line(1 + cw, 1, width-2, 1);
-	line(1, height-2, width-2-cw, height-2);
+	line(0, 0, 0, height);
+	line(width, 0, width, height);
+	line(cw, 0, width, 0);
+	line(0, height, width-cw, height);
 	for (var i = 0; i < res.walls.length; i++) {
 		var wall = res.walls[i];
 		if (wall.horiz) {
