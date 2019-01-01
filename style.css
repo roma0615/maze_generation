@@ -1,14 +1,11 @@
 html, body {
-	height: 100%;
-}
-
-p, label, footer, th, td {
-	color: white;
+	min-height: 100%;
 }
 
 body {
 	font-family: Verdana;
-	margin: 0;
+	color: white;
+	margin: 30px 0;
 	box-sizing: border-box;
 	background: #1A1A1A;
 	display: flex;
@@ -151,5 +148,21 @@ td, th {
 	opacity: 1;
 }
 
+.controls {
+	display: flex;
+	flex-direction: column;
+}
+
+/* Medium and Large devices */
+@media all and (min-width: 620px) {
+	.controls {
+		flex-direction: row;
+	}
+}
+
+.stack-sm {
+	display: block;
+	margin: 10px;
+}
 
 

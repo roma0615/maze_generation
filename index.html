@@ -11,25 +11,23 @@
 <body>
 	<div id="canvas_container"></div>
 	<br>
-	<table>
-		<tr>
-			<th class="tooltip">
+
+	<div class="controls">
+		<div class="stack-sm">
+			<div class="tooltip">
 				Edges per frame = <span id="speed_txt"></span>
 				<span class="tooltip-text">The number of edges removed per frame. Determines the speed of the maze generation.</span>
-			</th>
-			<th>
+			</div>
+			<input type="range" id="speed_slider" min="0" max="200" value="3">
+		</div><!--
+		--><div class="stack-sm">
+			<div>
 				Size of maze = <span id="maze_size_txt"></span>
-			</th>
-		</tr>
-		<tr>
-			<td>
-				<input type="range" id="speed_slider" min="0" max="200" value="3">
-			</td>
-			<td>
-				<input type="range" id="maze_size_slider" min="1" max="50">
-			</td>
-		</tr>
-	</table>
+			</div>
+			<input type="range" id="maze_size_slider" min="1" max="50">
+		</div>
+	</div>
+
 	<br>
 	<footer>
 		Roma Bhattacharjee &mdash; 2018
